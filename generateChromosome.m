@@ -6,6 +6,10 @@ n = randi([min_n,max_n],1,1);
 MLP2Net = generate_mlp(inMLP2,tarMLP2,n);
 
 %% Train networks with unsupervised and supervised data
+
+inMLP1 = inMLP1';
+inMLP2 = inMLP2';
+
 outputMLP1 = MLP1Net(inMLP1);
 NewTargetsMLP2 = outputMLP1;
 MLP2Net = train(MLP2Net,inMLP2,NewTargetsMLP2);
@@ -18,6 +22,7 @@ MLP1Net = train(MLP1Net,inMLP1,NewTargetsMLP1);
 MaxNeurons = 50;
 Spread = rand();
 RBF1Net = GenerateRBF(inRBF1,tarRBF1,Spread,MaxNeurons);
+
 Spread = rand();
 RBF2Net = GenerateRBF(inRBF2,tarRBF2,Spread,MaxNeurons);
 
@@ -38,8 +43,6 @@ Chromosome.RBF1Net = RBF1Net;
 Chromosome.r2 = randi([1,3],1,1);
 Chromosome.MLP2 = MLP2Net;
 Chromosome.RBF1 = RBF1Net;
-
-%%
 
 
 end
