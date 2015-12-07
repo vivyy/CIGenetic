@@ -271,3 +271,9 @@ neurons = randi([MinNeurons,MaxNeurons],1,1); % Number of neurons for MLP
 spread = rand(); % Spread value for RBF
 MembershipFunctions = randi([3,7],1,1); % Number of mem. funct. for ANFIS
 
+%% Populate chromosome
+max_n = 15;
+min_n = 6;
+Chromo = generateChromosome(max_n,min_n,inputsMLP1,inputsMLP2,targetsMLP1,...
+    targetsMLP2,inputsRBF1,inputsRBF2,targetsRBF1,targetsRBF2);
+
