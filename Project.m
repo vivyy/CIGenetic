@@ -97,10 +97,12 @@ targetsANFIS1 = xlsread('neural_data.xlsx','N32:N101');
 
 %% MLP1 %%
 %%%%%%%%%%
+%%
+n = randi([min_n,max_n],1,1);
+iterations = 10;
+MLP1Net = generate_mlp(inputsMLP1,targetsMLP1,n);
 
-iterations = 2;
-n = rand();
-MLP1Net = generateMLP(inputsMLP1,targetsMLP1,n,iterations);
+%%
 
 
 %% RBF1 %%
@@ -148,11 +150,12 @@ targetsRBF2 = targetsMLP2';
 
 %% MLP2 %%
 %%%%%%%%%%
+%%
+n = randi([min_n,max_n],1,1);
 iterations = 10;
-MinNeurons = 6;
-MaxNeurons = 15;
 
-MLP1Net = generateMLP(inputsMLP1,targetsMLP1,MaxNeurons,MinNeurons,iterations);
+MLP2Net = generate_mlp(inputsMLP2,targetsMLP2,n);
+%%
 
 
 %% RBF2 %%
