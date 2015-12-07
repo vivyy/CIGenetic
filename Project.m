@@ -31,68 +31,20 @@ R3Input = [R3L1, R3L2, R3L3];
                                 %%%%%%%%%%%%%%%%
 
  
-for n= 6:10 
-[res,testmse,testreg]= mlp_avg_mse(gen_factors,gen_perc,n,10);
-Mse(i) = testmse;
-Reg(i) = testreg;
-Array{i} = res;
-i=i+1;
-end
+%% GP MLP
+max_n =15;
+min_n = 6;
+mpl = getBest(gen_factors,gen_perc,max_n, min_n)
 
-Minimum = min(Mse);
-for j= 1:i-1
-    if (Mse(j) == Minimum)
-        Min_Net = j;
-    end
-end
-    MinCell = [];
-    for p = 1:10
-        MinCell(p) = Array{Min_Net}{p}.perf;
-        
-    end;
-   [minimo, minimoindice] = min(MinCell);
-   
-   MinNet = Array{1,Min_Net}{1,minimoindice};
-   
-   plot((MinNeurons:MaxNeurons),Mse);
-   
-%% 
+
+
                             %%%%%%%%%%%%%%%%
                          %%%%  RISK 1 MLP  %%%%
                             %%%%%%%%%%%%%%%%
 
-iterations = 10;
-MinNeurons = 6;
-MaxNeurons = 15;
-
-Mse_R1(MaxNeurons-MinNeurons) = zeros;
-Reg_R1(MaxNeurons-MinNeurons) = zeros;
-Array_R1{1,MaxNeurons-MinNeurons} = zeros;
-
-i=1;
-for n= MinNeurons:MaxNeurons
-[res_R1,testmse_R1,testreg_R1]= mlp_avg_mse(R1Input,R1T,n,iterations);
-Mse_R1(i) = testmse_R1;
-Reg_R1(i) = testreg_R1;
-Array_R1{i} = res_R1;
-i=i+1;
-end
+mpl_r1 = getBest(R1Input,R1T,max_n, min_n)
  
-Minimum_R1 = min(Mse_R1);
-for j= 1:i-1
-    if (Mse_R1(j) == Minimum_R1)
-        Min_Net_R1 = j;
-    end
-end
- 
-    MinCell_R1 (iterations) = zeros;
-for p = 1:iterations
-    MinCell_R1(p) = Array_R1{Min_Net_R1}{p}.perf;
-end;
-[minimo_R1, minimoindice_R1] = min(MinCell_R1);
-   
-MinNet_R1 = Array_R1{1,Min_Net_R1}{1,minimoindice_R1};
-plot((MinNeurons:MaxNeurons),Mse_R1);
+
 
     
 %% 
@@ -100,74 +52,13 @@ plot((MinNeurons:MaxNeurons),Mse_R1);
                          %%%%  RISK 2 MLP  %%%%
                             %%%%%%%%%%%%%%%%
 
-Mse_R2(MaxNeurons-MinNeurons) = zeros;
-Reg_R2(MaxNeurons-MinNeurons) = zeros;
-Array_R2{1,MaxNeurons-MinNeurons} = zeros;
-
-i=1;
-for n= MinNeurons:MaxNeurons 
-[res_R2,testmse_R2,testreg_R2]= mlp_avg_mse(R2Input,R2T,n,iterations);
-Mse_R2(i) = testmse_R2;
-Reg_R2(i) = testreg_R2;
-Array_R2{i} = res_R2;
-i=i+1;
-end
- 
-Minimum_R2 = min(Mse_R2);
-for j= 1:i-1
-    if (Mse_R2(j) == Minimum_R2)
-        Min_Net_R2 = j;
-    end
-end
- 
-    MinCell_R2 (iterations) = zeros;
-    for p = 1:iterations
-        MinCell_R2(p) = Array_R2{Min_Net_R2}{p}.perf;
-        
-    end;
-   [minimo_R2, minimoindice_R2] = min(MinCell_R2);
-   
-   MinNet_R2 = Array_R2{1,Min_Net_R2}{1,minimoindice_R2};
-   
-   plot((MinNeurons:MaxNeurons),Mse_R2);
-
-
+mpl_r2 = getBest(R2Input,R2T,max_n, min_n)
 %% 
                             %%%%%%%%%%%%%%%%
                          %%%%  RISK 3 MLP  %%%%
                             %%%%%%%%%%%%%%%%
 
-Mse_R3(MaxNeurons-MinNeurons) = zeros;
-Reg_R3(MaxNeurons-MinNeurons) = zeros;
-Array_R3{1,MaxNeurons-MinNeurons} = zeros;
-i=1;
-
-for n= MinNeurons:MaxNeurons 
-[res_R3,testmse_R3,testreg_R3]= mlp_avg_mse(R3Input,R3T,n,iterations);
-Mse_R3(i) = testmse_R3;
-Reg_R3(i) = testreg_R3;
-Array_R3{i} = res_R3;
-i=i+1;
-end
-
- 
-Minimum_R3 = min(Mse_R3);
-for j= 1:i-1
-    if (Mse_R3(j) == Minimum_R3)
-        Min_Net_R3 = j;
-    end
-end
- 
-    MinCell_R3 (iterations) = zeros;
-    for p = 1:iterations
-        MinCell_R3(p) = Array_R3{Min_Net_R3}{p}.perf;
-        
-    end;
-   [minimo_R3, minimoindice_R3] = min(MinCell_R3);
-   
-   MinNet_R3 = Array_R3{1,Min_Net_R3}{1,minimoindice_R3};
-   plot((MinNeurons:MaxNeurons),Mse_R3);
-   
+mpl_r3 = getBest(R3Input,R3T,max_n, min_n)
 %%   
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
