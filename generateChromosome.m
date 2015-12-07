@@ -1,34 +1,34 @@
-function Chromosome = generateChromosome()
+function Chromosome = generateChromosome(max_n,min_n,inMLP1,inMLP2,tarMLP1,tarMLP2,inRBF1,inRBF2,tarRBF1,tarRBF2)
 
 n = randi([min_n,max_n],1,1);
-MLP1Net = generate_mlp(inputsMLP1,targetsMLP1,n);
+MLP1Net = generate_mlp(inMLP1,tarMLP1,n);
 n = randi([min_n,max_n],1,1);
-MLP2Net = generate_mlp(inputsMLP2,targetsMLP2,n);
+MLP2Net = generate_mlp(inMLP2,tarMLP2,n);
 
 %% Train networks with unsupervised and supervised data
-outputMLP1 = MLP1Net(inputsMLP1);
+outputMLP1 = MLP1Net(inMLP1);
 NewTargetsMLP2 = outputMLP1;
-MLP2Net = train(MLP2Net,inputsMLP2,NewTargetsMLP2);
+MLP2Net = train(MLP2Net,inMLP2,NewTargetsMLP2);
 
-outputMLP2 = MLP2Net(inputsMLP2);
+outputMLP2 = MLP2Net(inMLP2);
 NewTargetsMLP1 = outputMLP2;
-MLP1Net = train(MLP1Net,inputsMLP1,NewTargetsMLP1);
+MLP1Net = train(MLP1Net,inMLP1,NewTargetsMLP1);
                         
 %%
 MaxNeurons = 50;
 Spread = rand();
-RBF1Net = GenerateRBF(inputsRBF1,targetsRBF1,Spread,MaxNeurons);
+RBF1Net = GenerateRBF(inRBF1,tarRBF1,Spread,MaxNeurons);
 Spread = rand();
-RBF2Net = GenerateRBF(inputsRBF2,targetsRBF2,Spread,MaxNeurons);
+RBF2Net = GenerateRBF(inRBF2,tarRBF2,Spread,MaxNeurons);
 
 %% Train networks with unsupervised and supervised data
-outputRBF1 = RBF1Net(inputsRBF1); 
+outputRBF1 = RBF1Net(inRBF1); 
 NewTargetsRBF2 = outputRBF1;
-RBF2Net = train(RBF2Net,inputsRBF2,NewTargetsRBF2); 
+RBF2Net = train(RBF2Net,inRBF2,NewTargetsRBF2); 
 
-outputRBF2 = RBF2Net(inputsRBF2);
+outputRBF2 = RBF2Net(inRBF2);
 NewTargetsRBF1 = outputRBF2;
-RBF1Net = train(RBF1Net,inputsRBF1,NewTargetsRBF1);
+RBF1Net = train(RBF1Net,inRBF1,NewTargetsRBF1);
 %%
 
 Chromosome = struct;
