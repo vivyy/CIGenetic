@@ -42,7 +42,7 @@ Chromosome.MLP1 = MLP1Net;
 Chromosome.RBF1Net = RBF1Net;
 Chromosome.r2 = randi([1,3],1,1);
 Chromosome.MLP2 = MLP2Net;
-Chromosome.RBF1 = RBF1Net;
+Chromosome.RBF1 = RBF2Net;
 
 
 end
