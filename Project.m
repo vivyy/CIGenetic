@@ -98,12 +98,10 @@ targetsANFIS1 = xlsread('neural_data.xlsx','N32:N101');
 %% MLP1 %%
 %%%%%%%%%%
 %%
+min_n = 6;
+max_n = 15;
 n = randi([min_n,max_n],1,1);
-iterations = 10;
 MLP1Net = generate_mlp(inputsMLP1,targetsMLP1,n);
-
-%%
-
 
 %% RBF1 %%
 %%%%%%%%%%
@@ -271,15 +269,11 @@ neurons = randi([MinNeurons,MaxNeurons],1,1); % Number of neurons for MLP
 spread = rand(); % Spread value for RBF
 MembershipFunctions = randi([3,7],1,1); % Number of mem. funct. for ANFIS
 
-<<<<<<< Updated upstream
+
 %% Populate chromosome
 max_n = 15;
 min_n = 6;
 Chromo = generateChromosome(max_n,min_n,inputsMLP1,inputsMLP2,targetsMLP1,...
     targetsMLP2,inputsRBF1,inputsRBF2,targetsRBF1,targetsRBF2);
 
-=======
-%%
-Chromo = generateChromosome(15,6,inputsMLP1,inputsMLP2,targetsMLP1,...
-    targetsMLP2,inputsRBF1,inputsRBF2,targetsRBF1,targetsRBF2);
->>>>>>> Stashed changes
+
