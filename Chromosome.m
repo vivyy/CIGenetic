@@ -38,9 +38,8 @@ targetsANFIS2 = targetsMLP2;
 max_n = 15;
 min_n = 6;
 m = 1;
-Chromosome (m) = struct;
+Chromosome = struct;
 for i=1:m
-Chromosome(m) = generateChromosome(max_n,min_n,inputsMLP1,inputsMLP2,targetsMLP1,...
-    targetsMLP2,inputsRBF1,inputsRBF2,targetsRBF1,targetsRBF2, inputsANFIS1,...
-    inputsANFIS2,tagetsANFIS1,targetsANFIS2);
+Chromosome = generateChromosome(max_n,min_n,inputsMLP1,inputsMLP2,targetsMLP1,...
+    targetsMLP2,inputsRBF1,inputsRBF2,targetsRBF1,targetsRBF2, inputsANFIS1,inputsANFIS2,targetsANFIS1,targetsANFIS2);
 end
