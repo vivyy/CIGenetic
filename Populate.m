@@ -43,6 +43,6 @@ Population = cell(1,m);
 for i=1:m
 Population{1,i} = generateChromosome(max_n,min_n,inputsMLP1,inputsMLP2,targetsMLP1,...
     targetsMLP2,inputsRBF1,inputsRBF2,targetsRBF1,targetsRBF2, inputsANFIS1,inputsANFIS2,targetsANFIS1,targetsANFIS2);
-
+disp('Generated Chromosome number', i);
 close all
 end
