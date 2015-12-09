@@ -22,6 +22,7 @@ MLP1Net = train(MLP1Net,inMLP1,NewTargetsMLP1);
 MaxNeurons = 50;
 Spread = rand();
 RBF1Net = GenerateRBF(inRBF1,tarRBF1,Spread,MaxNeurons);
+%%%%
 
 Spread = rand();
 RBF2Net = GenerateRBF(inRBF2,tarRBF2,Spread,MaxNeurons);
