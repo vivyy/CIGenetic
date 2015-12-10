@@ -9,7 +9,7 @@ NewF4 =  xlsread(filename, 'G32:G81');
 NewFs = [NewF1, NewF2, NewF3, NewF4];
 %%
 TENpert = 0.90 + (1.1-0.90).*rand(50,4);
-TWENTYpert = 0.80 + (1.2-0.60).*rand(50,4);
+TWENTYpert = 0.80 + (1.2-0.80).*rand(50,4);
 
 PertNewFs = TENpert.*NewFs;
 PertNewFs20 = TWENTYpert.*NewFs;
@@ -42,6 +42,11 @@ subplot(2,2,1), plot(NewF1,NewF4,'o'), title('F1 VS F4');
 subplot(2,2,2), plot(PertNewFs20(:,1),NewF4,'o'), title('PertF1 VS F4');
 subplot(2,2,3), plot(NewF1,PertNewFs20(:,4),'o'), title('F1 VS PertF4');
 subplot(2,2,4), plot(PertNewFs20(:,1),PertNewFs20(:,4),'o'), title('PertF1 VS PertF4');
+
+std(NewF1)
+std(PertNewFs(:,1))
+std(NewF4)
+std(PertNewFs(:,4))
 
 %% Plot results disturbing F2 and F3 %%
 % Max 10% disturbance
