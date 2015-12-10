@@ -1,5 +1,6 @@
 filename = 'neural_data.xlsx';
-gen_factors =  xlsread(filename, 'D31:G101');
+
+%%gen_factors =  xlsread(filename, 'D32:G101');
 gen_perc = xlsread(filename,  'I32:I101');
 i=1;
 
@@ -195,6 +196,32 @@ MinMSEAnfis2 = min(MseAnfis2);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
                         %% MLP1 & MLP2 %%
+%% Unsupervised data generation
+
+NewF1 =  xlsread(filename, 'D32:D81');
+NewF2 =  xlsread(filename, 'E32:E81');
+NewF3 =  xlsread(filename, 'F32:F81');
+NewF4 =  xlsread(filename, 'G32:G81');
+NewF5 =  xlsread(filename, 'K32:K81');
+NewF6 =  xlsread(filename, 'L32:L81');
+
+NewFs = [NewF1, NewF2, NewF3, NewF4, NewF5, NewF6];
+
+NewR1
+cols = 6;
+workers = 50;
+
+pert = 0.99 + (1.1-0.99).*rand(workers,cols);
+
+UnsupervisedF = pert.*NewFs;
+
+for i = 1:cols
+    for j = 1:workers
+    if (UnsupervisedF(j,i) > 1), UnsupervisedF(j,i)=1; end
+    end
+end
+%%
+
 outputMLP1 = MLP1Net(inputsMLP1);
 NewTargetsMLP2 = outputMLP1;
 MLP2Net = train(MLP2Net,inputsMLP2,NewTargetsMLP2);
