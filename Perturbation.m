@@ -1,20 +1,21 @@
 %%function output = perturb(input,max_range,min_range)
-
-%% 10% perturbation
+% Load data
 filename = 'neural_data.xlsx';
 NewF1 =  xlsread(filename, 'D32:D81');
 NewF2 =  xlsread(filename, 'E32:E81');
 NewF3 =  xlsread(filename, 'F32:F81');
 NewF4 =  xlsread(filename, 'G32:G81');
 NewFs = [NewF1, NewF2, NewF3, NewF4];
-%%
-TENpert = 0.90 + (1.1-0.90).*rand(50,4);
-TWENTYpert = 0.80 + (1.2-0.80).*rand(50,4);
+
+%% Generate new data with a certain perturbation
+
+TENpert = 0.90 + (1.1-0.90).*rand(50,4); % Max 10% of perturbation
+TWENTYpert = 0.80 + (1.2-0.80).*rand(50,4); % Max 20% of perturbation
 
 PertNewFs = TENpert.*NewFs;
 PertNewFs20 = TWENTYpert.*NewFs;
 
-
+% Check any value exceeds the range [0,1]
 for i = 1:4
     for j = 1:50
     if (PertNewFs(j,i) > 1), PertNewFs(j,i)=1; end
@@ -27,7 +28,7 @@ for i = 1:4
     end
 end
     
-%% Plot results disturbing F1 and F4 %%
+%% Plot results F1 and F4 %%
 
 % Max 10% disturbance
 close all
@@ -48,7 +49,7 @@ std(PertNewFs(:,1))
 std(NewF4)
 std(PertNewFs(:,4))
 
-%% Plot results disturbing F2 and F3 %%
+%% Plot results F2 and F3 %%
 % Max 10% disturbance
 close all
 subplot(2,2,1), plot(NewF2,NewF3,'+'), title('F2 VS F3');
