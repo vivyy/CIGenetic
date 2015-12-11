@@ -1,6 +1,5 @@
 filename = 'neural_data.xlsx';
-
-%%gen_factors =  xlsread(filename, 'D32:G101');
+gen_factors =  xlsread(filename, 'D31:G101');
 gen_perc = xlsread(filename,  'I32:I101');
 i=1;
 
@@ -35,7 +34,7 @@ R3Input = [R3L1, R3L2, R3L3];
 %% GP MLP
 max_n =15;
 min_n = 6;
-mpl = getBest(gen_factors,gen_perc,max_n, min_n)
+mpl_gp = getBest(gen_factors,gen_perc,max_n, min_n)
 
 
 
@@ -98,11 +97,32 @@ targetsANFIS1 = xlsread('neural_data.xlsx','N32:N101');
 
 %% MLP1 %%
 %%%%%%%%%%
-%%
-min_n = 6;
-max_n = 15;
+
 n = randi([min_n,max_n],1,1);
+iterations = 10;
 MLP1Net = generate_mlp(inputsMLP1,targetsMLP1,n);
+
+%% new trained net
+Pertubed_inputs = [INCPertNewFs(:,1),NewF2,NewF3,NewF4];
+%%
+for i=1:50
+outputsnew(i,1:4) = mpl_gp.net(Pertubed_inputs(i,:));
+end
+outputsnew = [outputsnew NewF5 NewF6];
+%%
+newdata= [gen_factors C1F1 C1F2];
+semifinal = [outputsnew' newdata'];
+semifinal = semifinal';
+%%
+for i=1:120
+finalOut(i,1:6) = MLP1Net(semifinal(i,:));
+end
+%%
+ok = [gen_factors' Pertubed_inputs'];
+ok = ok';
+
+newmlp = getBest();
+[Gp_New_Net] = train(mpl_gp.net,ok);
 
 %% RBF1 %%
 %%%%%%%%%%
@@ -196,32 +216,6 @@ MinMSEAnfis2 = min(MseAnfis2);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
                         %% MLP1 & MLP2 %%
-%% Unsupervised data generation
-
-NewF1 =  xlsread(filename, 'D32:D81');
-NewF2 =  xlsread(filename, 'E32:E81');
-NewF3 =  xlsread(filename, 'F32:F81');
-NewF4 =  xlsread(filename, 'G32:G81');
-NewF5 =  xlsread(filename, 'K32:K81');
-NewF6 =  xlsread(filename, 'L32:L81');
-
-NewFs = [NewF1, NewF2, NewF3, NewF4, NewF5, NewF6];
-
-NewR1
-cols = 6;
-workers = 50;
-
-pert = 0.99 + (1.1-0.99).*rand(workers,cols);
-
-UnsupervisedF = pert.*NewFs;
-
-for i = 1:cols
-    for j = 1:workers
-    if (UnsupervisedF(j,i) > 1), UnsupervisedF(j,i)=1; end
-    end
-end
-%%
-
 outputMLP1 = MLP1Net(inputsMLP1);
 NewTargetsMLP2 = outputMLP1;
 MLP2Net = train(MLP2Net,inputsMLP2,NewTargetsMLP2);
