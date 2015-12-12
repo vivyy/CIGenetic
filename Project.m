@@ -3,6 +3,8 @@ gen_factors =  xlsread(filename, 'D31:G101');
 gen_perc = xlsread(filename,  'I32:I101');
 i=1;
 
+%%
+
 
 %% Risk Caution MLP %%
  
